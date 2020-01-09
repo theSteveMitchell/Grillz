@@ -15,15 +15,21 @@ class ListViewController: UITableViewController, CBCentralManagerDelegate, CBPer
     var manager: CBCentralManager!
     let scanningDelay = 1.0
     var devices = [String: Device]()
+    let cellIdentifier = "DeviceCell"
 
     override func viewDidLoad() {
         super.viewDidLoad()
+        
+        title = "Found Devices"
 
         // Uncomment the following line to preserve selection between presentations
          self.clearsSelectionOnViewWillAppear = false
 
         // Uncomment the following line to display an Edit button in the navigation bar for this view controller.
         // self.navigationItem.rightBarButtonItem = self.editButtonItem
+        
+        //register class
+        tableView.register(UITableViewCell.classForCoder(), forCellReuseIdentifier: cellIdentifier)
     }
     
     override func viewWillAppear(_ animated: Bool) {
@@ -34,7 +40,7 @@ class ListViewController: UITableViewController, CBCentralManagerDelegate, CBPer
 
     override func numberOfSections(in tableView: UITableView) -> Int {
         // #warning Incomplete implementation, return the number of sections
-        return 0
+        return 1
     }
 
     override func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
@@ -43,8 +49,8 @@ class ListViewController: UITableViewController, CBCentralManagerDelegate, CBPer
 
     
     override func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
-        let cell = tableView.dequeueReusableCell(withIdentifier: "DeviceCell", for: indexPath)
-
+        let cell = tableView.dequeueReusableCell(withIdentifier: cellIdentifier, for: indexPath)
+        
         // Configure the cell...
         if let device = deviceForIndexPath(indexPath){
             cell.textLabel?.text = device.name
@@ -64,6 +70,7 @@ class ListViewController: UITableViewController, CBCentralManagerDelegate, CBPer
             return nil
         }
         
+        print(Array(devices.values)[indexPath.row])
         return Array(devices.values)[indexPath.row]
     
     }
@@ -71,6 +78,8 @@ class ListViewController: UITableViewController, CBCentralManagerDelegate, CBPer
     func centralManagerDidUpdateState(_ central: CBCentralManager){
         if central.state == .poweredOn{
             manager.scanForPeripherals(withServices: nil, options: nil)
+            
+            print("started scan")
         }
     }
     
@@ -80,7 +89,6 @@ class ListViewController: UITableViewController, CBCentralManagerDelegate, CBPer
     
     func peripheral(_ peripheral: CBPeripheral, didReadRSSI RSSI: NSNumber, error: Error?) {
         didReadPeripheral(peripheral, rssi: RSSI)
-        
         //delay(scanningDelay){
             //peripheral.readRSSI()
         //}
@@ -89,8 +97,12 @@ class ListViewController: UITableViewController, CBCentralManagerDelegate, CBPer
     func didReadPeripheral(_ peripheral: CBPeripheral, rssi: NSNumber){
         if let name = peripheral.name{
             devices[name] = Device(name: name, rssi: rssi as! Int)
+            //print("found a peripheral")
+            //print(peripheral.name)
+            //puts(String(devices.keys.count))
         }
         tableView.reloadData()
+        
     }
     
     func centralManager(_ central: CBCentralManager, didConnect peripheral: CBPeripheral) {

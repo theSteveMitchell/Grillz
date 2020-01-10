@@ -22,14 +22,7 @@ class ListViewController: UITableViewController, CBCentralManagerDelegate, CBPer
         
         title = "Found Devices"
 
-        // Uncomment the following line to preserve selection between presentations
-         self.clearsSelectionOnViewWillAppear = false
-
-        // Uncomment the following line to display an Edit button in the navigation bar for this view controller.
-        // self.navigationItem.rightBarButtonItem = self.editButtonItem
-        
-        //register class
-        //tableView.register(UITableViewCell.classForCoder(), forCellReuseIdentifier: cellIdentifier)
+        self.clearsSelectionOnViewWillAppear = false
     }
     
     override func viewWillAppear(_ animated: Bool) {
@@ -39,7 +32,6 @@ class ListViewController: UITableViewController, CBCentralManagerDelegate, CBPer
     }
 
     override func numberOfSections(in tableView: UITableView) -> Int {
-        // #warning Incomplete implementation, return the number of sections
         return 1
     }
 
@@ -77,28 +69,34 @@ class ListViewController: UITableViewController, CBCentralManagerDelegate, CBPer
     func centralManagerDidUpdateState(_ central: CBCentralManager){
         if central.state == .poweredOn{
             manager.scanForPeripherals(withServices: nil, options: nil)
-            
+            //if #available(iOS 13.0, *) {
+                //manager.registerForConnectionEvents(options: nil)
+            //}
             print("started scan")
+            //let known = manager.retrievePeripherals(withIdentifiers: nil)
         }
     }
     
     func centralManager(_ central: CBCentralManager, didDiscover peripheral: CBPeripheral, advertisementData: [String : Any], rssi RSSI: NSNumber) {
-        didReadPeripheral(peripheral, rssi: RSSI)
+        didReadPeripheral(peripheral, rssi: RSSI, advertisement: advertisementData)
     }
+    
     
     func peripheral(_ peripheral: CBPeripheral, didReadRSSI RSSI: NSNumber, error: Error?) {
-        didReadPeripheral(peripheral, rssi: RSSI)
-        //delay(scanningDelay){
-            //peripheral.readRSSI()
-        //}
+        if let name = peripheral.name{
+            devices[name]?.rssi = RSSI as! Int
+        }
+        tableView.reloadData()
+        
+        delay(scanningDelay){
+            peripheral.readRSSI()
+        }
+        
     }
     
-    func didReadPeripheral(_ peripheral: CBPeripheral, rssi: NSNumber){
+    func didReadPeripheral(_ peripheral: CBPeripheral, rssi: NSNumber, advertisement: [String : Any]){
         if let name = peripheral.name{
-            devices[name] = Device(name: name, rssi: rssi as! Int)
-            //print("found a peripheral")
-            //print(peripheral.name)
-            //puts(String(devices.keys.count))
+            devices[name] = Device(name: name, rssi: rssi as! Int, advertisement: advertisement)
         }
         tableView.reloadData()
         
@@ -107,55 +105,9 @@ class ListViewController: UITableViewController, CBCentralManagerDelegate, CBPer
     func centralManager(_ central: CBCentralManager, didConnect peripheral: CBPeripheral) {
         peripheral.readRSSI()
     }
-
-    /*
-    // Override to support conditional editing of the table view.
-    override func tableView(_ tableView: UITableView, canEditRowAt indexPath: IndexPath) -> Bool {
-        // Return false if you do not want the specified item to be editable.
-        return true
-    }
-    */
-
-    /*
-    // Override to support editing the table view.
-    override func tableView(_ tableView: UITableView, commit editingStyle: UITableViewCell.EditingStyle, forRowAt indexPath: IndexPath) {
-        if editingStyle == .delete {
-            // Delete the row from the data source
-            tableView.deleteRows(at: [indexPath], with: .fade)
-        } else if editingStyle == .insert {
-            // Create a new instance of the appropriate class, insert it into the array, and add a new row to the table view
-        }    
-    }
-    */
-
-    /*
-    // Override to support rearranging the table view.
-    override func tableView(_ tableView: UITableView, moveRowAt fromIndexPath: IndexPath, to: IndexPath) {
-
-    }
-    */
-
-    /*
-    // Override to support conditional rearranging of the table view.
-    override func tableView(_ tableView: UITableView, canMoveRowAt indexPath: IndexPath) -> Bool {
-        // Return false if you do not want the item to be re-orderable.
-        return true
-    }
-    */
-
-    /*
-    // MARK: - Navigation
-
-    // In a storyboard-based application, you will often want to do a little preparation before navigation
-    override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
-        // Get the new view controller using segue.destination.
-        // Pass the selected object to the new view controller.
-    }
-    */
-
 }
 
-//func delay(_ delay:Double, closure:@escaping ()->()) {
-  //  DispatchQueue.main.asyncAfter(
-    //    deadline: <#T##DispatchTime#>.self + Double(Int64(delay * Double(NSEC_PER_SEC))) / Double(NSEC_PER_SEC), execute: closure)
-//}
+func delay(_ delay:Double, closure:@escaping ()->()) {
+    DispatchQueue.main.asyncAfter(
+        deadline: .now() + delay, execute: closure)
+}

@@ -29,7 +29,7 @@ class ListViewController: UITableViewController, CBCentralManagerDelegate, CBPer
         // self.navigationItem.rightBarButtonItem = self.editButtonItem
         
         //register class
-        tableView.register(UITableViewCell.classForCoder(), forCellReuseIdentifier: cellIdentifier)
+        //tableView.register(UITableViewCell.classForCoder(), forCellReuseIdentifier: cellIdentifier)
     }
     
     override func viewWillAppear(_ animated: Bool) {
@@ -49,17 +49,13 @@ class ListViewController: UITableViewController, CBCentralManagerDelegate, CBPer
 
     
     override func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
-        let cell = tableView.dequeueReusableCell(withIdentifier: cellIdentifier, for: indexPath)
+        let cell = tableView.dequeueReusableCell(withIdentifier: cellIdentifier, for: indexPath) as! DeviceTableViewCell
         
         // Configure the cell...
         if let device = deviceForIndexPath(indexPath){
-            cell.textLabel?.text = device.name
-            
-            if let rssi = device.rssi as? Int{
-                cell.detailTextLabel?.text = "\(rssi.description) dBm"
-            } else {
-                cell.detailTextLabel?.text = "meh dBm"
-            }
+            cell.deviceNameLable?.text = device.name
+            cell.deviceDescriptionLable.text = "About $3.50"
+            cell.deviceDistanceLable.text = "\(device.rssi.description) dBm"
         }
 
         return cell

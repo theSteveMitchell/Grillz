@@ -10,9 +10,9 @@ import UIKit
 
 class DeviceTableViewCell: UITableViewCell {
 
-    @IBOutlet weak var deviceNameLable: UILabel!
-    @IBOutlet weak var deviceDescriptionLable: UILabel!
-    @IBOutlet weak var deviceDistanceLable: UILabel!
+    @IBOutlet weak var deviceNameLabel: UILabel!
+    @IBOutlet weak var deviceDescriptionLabel: UILabel!
+    @IBOutlet weak var deviceDistanceLabel: UILabel!
     
     override func awakeFromNib() {
         super.awakeFromNib()

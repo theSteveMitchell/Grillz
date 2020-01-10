@@ -53,9 +53,9 @@ class ListViewController: UITableViewController, CBCentralManagerDelegate, CBPer
         
         // Configure the cell...
         if let device = deviceForIndexPath(indexPath){
-            cell.deviceNameLable?.text = device.name
-            cell.deviceDescriptionLable.text = "About $3.50"
-            cell.deviceDistanceLable.text = "\(device.rssi.description) dBm"
+            cell.deviceNameLabel?.text = device.name
+            cell.deviceDescriptionLabel.text = "About $3.50"
+            cell.deviceDistanceLabel.text = "\(device.rssi.description) dBm"
         }
 
         return cell
@@ -66,10 +66,13 @@ class ListViewController: UITableViewController, CBCentralManagerDelegate, CBPer
             return nil
         }
         
-        print(Array(devices.values)[indexPath.row])
         return Array(devices.values)[indexPath.row]
     
     }
+    
+    //override func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
+    //    return 200.6
+    //}
     
     func centralManagerDidUpdateState(_ central: CBCentralManager){
         if central.state == .poweredOn{

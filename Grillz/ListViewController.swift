@@ -62,9 +62,17 @@ class ListViewController: UITableViewController, CBCentralManagerDelegate, CBPer
     
     }
     
-    //override func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
-    //    return 200.6
-    //}
+    override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
+        if segue.identifier == "ShowDeviceDetails" {
+
+            let deviceViewController = segue.destination
+                 as! DeviceViewController
+
+            let myIndexPath = self.tableView.indexPathForSelectedRow!
+            let row = myIndexPath.row
+            deviceViewController.deviceName = Array(devices.values)[row].name
+            }
+    }
     
     func centralManagerDidUpdateState(_ central: CBCentralManager){
         if central.state == .poweredOn{

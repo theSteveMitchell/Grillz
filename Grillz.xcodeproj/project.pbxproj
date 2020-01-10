@@ -9,6 +9,7 @@
 /* Begin PBXBuildFile section */
 		EFA11A0623C7E56F007E1E7C /* README.md in Resources */ = {isa = PBXBuildFile; fileRef = EFA11A0523C7E56F007E1E7C /* README.md */; };
 		EFA11A0C23C8D1A9007E1E7C /* DeviceTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = EFA11A0B23C8D1A9007E1E7C /* DeviceTableViewCell.swift */; };
+		EFA11A0E23C92C6C007E1E7C /* DeviceViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = EFA11A0D23C92C6C007E1E7C /* DeviceViewController.swift */; };
 		EFA21D7323C78F4800B50B80 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = EFA21D7223C78F4800B50B80 /* AppDelegate.swift */; };
 		EFA21D7823C78F4800B50B80 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = EFA21D7623C78F4800B50B80 /* Main.storyboard */; };
 		EFA21D7A23C78F4900B50B80 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = EFA21D7923C78F4900B50B80 /* Assets.xcassets */; };
@@ -20,6 +21,7 @@
 /* Begin PBXFileReference section */
 		EFA11A0523C7E56F007E1E7C /* README.md */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = net.daringfireball.markdown; path = README.md; sourceTree = SOURCE_ROOT; };
 		EFA11A0B23C8D1A9007E1E7C /* DeviceTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DeviceTableViewCell.swift; sourceTree = "<group>"; };
+		EFA11A0D23C92C6C007E1E7C /* DeviceViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DeviceViewController.swift; sourceTree = "<group>"; };
 		EFA21D6F23C78F4800B50B80 /* Grillz.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Grillz.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		EFA21D7223C78F4800B50B80 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		EFA21D7723C78F4800B50B80 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/Main.storyboard; sourceTree = "<group>"; };
@@ -63,6 +65,7 @@
 				EFA21D8423C78F8700B50B80 /* ListViewController.swift */,
 				EFA21D7223C78F4800B50B80 /* AppDelegate.swift */,
 				EFA21D7623C78F4800B50B80 /* Main.storyboard */,
+				EFA11A0D23C92C6C007E1E7C /* DeviceViewController.swift */,
 				EFA11A0B23C8D1A9007E1E7C /* DeviceTableViewCell.swift */,
 				EFA21D8623C7A23600B50B80 /* Device.swift */,
 				EFA11A0523C7E56F007E1E7C /* README.md */,
@@ -147,6 +150,7 @@
 			files = (
 				EFA11A0C23C8D1A9007E1E7C /* DeviceTableViewCell.swift in Sources */,
 				EFA21D7323C78F4800B50B80 /* AppDelegate.swift in Sources */,
+				EFA11A0E23C92C6C007E1E7C /* DeviceViewController.swift in Sources */,
 				EFA21D8523C78F8700B50B80 /* ListViewController.swift in Sources */,
 				EFA21D8723C7A23600B50B80 /* Device.swift in Sources */,
 			);

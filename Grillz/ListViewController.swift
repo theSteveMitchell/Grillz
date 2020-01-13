@@ -10,7 +10,9 @@ import UIKit
 import Foundation
 import CoreBluetooth
 
-class ListViewController: UITableViewController, CBCentralManagerDelegate, CBPeripheralDelegate {
+//class ListViewController: UITableViewController, CBCentralManagerDelegate, CBPeripheralDelegate {
+class ListViewController: UITableViewController, CBCentralManagerDelegate {
+
     
     var manager: CBCentralManager!
     let scanningDelay = 1.0
@@ -59,19 +61,21 @@ class ListViewController: UITableViewController, CBCentralManagerDelegate, CBPer
         }
         
         return Array(devices.values)[indexPath.row]
-    
     }
     
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
         if segue.identifier == "ShowDeviceDetails" {
+            
+            manager.stopScan()
 
             let deviceViewController = segue.destination
                  as! DeviceViewController
 
             let myIndexPath = self.tableView.indexPathForSelectedRow!
             let row = myIndexPath.row
-            deviceViewController.deviceName = Array(devices.values)[row].name
-            }
+            deviceViewController.device = Array(devices.values)[row].peripheral
+            deviceViewController.manager = manager
+        }
     }
     
     func centralManagerDidUpdateState(_ central: CBCentralManager){
@@ -90,6 +94,7 @@ class ListViewController: UITableViewController, CBCentralManagerDelegate, CBPer
     }
     
     
+    /*
     func peripheral(_ peripheral: CBPeripheral, didReadRSSI RSSI: NSNumber, error: Error?) {
         if let name = peripheral.name{
             devices[name]?.rssi = RSSI as! Int
@@ -101,21 +106,25 @@ class ListViewController: UITableViewController, CBCentralManagerDelegate, CBPer
         }
         
     }
+ */
     
     func didReadPeripheral(_ peripheral: CBPeripheral, rssi: NSNumber, advertisement: [String : Any]){
         if let name = peripheral.name{
-            devices[name] = Device(name: name, rssi: rssi as! Int, advertisement: advertisement)
+            devices[name] = Device(name: name, rssi: rssi as! Int, advertisement: advertisement, peripheral: peripheral)
         }
         tableView.reloadData()
-        
     }
     
+    /*
     func centralManager(_ central: CBCentralManager, didConnect peripheral: CBPeripheral) {
         peripheral.readRSSI()
     }
+    */
 }
 
-func delay(_ delay:Double, closure:@escaping ()->()) {
+
+/*func delay(_ delay:Double, closure:@escaping ()->()) {
     DispatchQueue.main.asyncAfter(
         deadline: .now() + delay, execute: closure)
 }
+*/

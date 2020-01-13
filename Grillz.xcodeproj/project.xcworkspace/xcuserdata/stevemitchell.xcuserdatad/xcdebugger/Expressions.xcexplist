@@ -1,0 +1,49 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<VariablesViewState
+   version = "1.0">
+   <ContextStates>
+      <ContextState
+         contextName = "DeviceViewController.peripheral(_:didDiscoverServices:):DeviceViewController.swift">
+      </ContextState>
+      <ContextState
+         contextName = "DeviceViewController.peripheral(_:didDiscoverDescriptorsFor:error:):DeviceViewController.swift">
+         <PersistentStrings>
+            <PersistentString
+               value = "(CBDescriptor *)((CBDescriptor *)0x0000000283518c90)">
+            </PersistentString>
+         </PersistentStrings>
+      </ContextState>
+      <ContextState
+         contextName = "DeviceViewController.viewWillAppear(_:):DeviceViewController.swift">
+      </ContextState>
+      <ContextState
+         contextName = "ListViewController.centralManager(_:didDiscover:advertisementData:rssi:):ListViewController.swift">
+      </ContextState>
+      <ContextState
+         contextName = "DeviceViewController.centralManager(_:didConnect:):DeviceViewController.swift">
+      </ContextState>
+      <ContextState
+         contextName = "ListViewController.deviceForIndexPath(_:):ListViewController.swift">
+      </ContextState>
+      <ContextState
+         contextName = "Device.init(name:rssi:advertisement:):Device.swift">
+      </ContextState>
+      <ContextState
+         contextName = "DeviceViewController.peripheral(_:didDiscoverCharacteristicsFor:error:):DeviceViewController.swift">
+      </ContextState>
+      <ContextState
+         contextName = "DeviceViewController.centralManagerDidUpdateState(_:):DeviceViewController.swift">
+      </ContextState>
+      <ContextState
+         contextName = "DeviceViewController.peripheral(_:didUpdateValueFor:error:):DeviceViewController.swift">
+         <PersistentStrings>
+            <PersistentString
+               value = "String(bytes: 0x00000002814908a0, encoding: .utf8)">
+            </PersistentString>
+            <PersistentString
+               value = "String(bytes: bytes, encoding: .utf8)">
+            </PersistentString>
+         </PersistentStrings>
+      </ContextState>
+   </ContextStates>
+</VariablesViewState>

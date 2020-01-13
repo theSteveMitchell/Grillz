@@ -92,6 +92,12 @@ class DeviceViewController: UITableViewController, CBCentralManagerDelegate, CBP
             device_info["\(characteristic.uuid)"] = string
             
         }
+        
+        // weird hack right now to add fake price data
+        if device_info.count == 1{
+            device_info["Pricetag (AOL Search)"] = "$\(Int.random(in: 1...2100)).\(Int.random(in: 1...99))"
+        }
+        
         tableView.reloadData()
     }
     
